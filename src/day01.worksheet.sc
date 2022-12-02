@@ -1,11 +1,10 @@
 val input = io.Source.fromFile("input/day01.txt")
 val lines = input.getLines.toList
 val caloriesPerElf = lines
-  .foldLeft(List(0))((acc, line) =>
+  .foldRight(List(0))((line, acc) =>
     if line.isEmpty then 0 :: acc
     else (acc.head + line.toInt) :: acc.tail
   )
-  .reverse
 
 // check the head and tail of list against the input data
 def firstElf(xs: Seq[String]): Int = xs.takeWhile(_.nonEmpty).map(_.toInt).sum
