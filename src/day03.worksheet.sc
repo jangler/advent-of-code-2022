@@ -9,6 +9,8 @@ def priority(i: Item): Int =
 case class Rucksack(first: Seq[Item], second: Seq[Item]):
   def commonItem: Option[Item] =
     first.toSet.intersect(second.toSet).headOption
+  
+  def all: Seq[Item] = first ++ second
 
 object Rucksack:
   def fromString(s: String): Rucksack =
@@ -30,4 +32,17 @@ exampleCommonItems.map(priority)
 
 // part one answer
 val inputLines = io.Source.fromFile("input/day03.txt").getLines.toList
-inputLines.map(line => priority(Rucksack.fromString(line).commonItem.get)).sum
+val rucksacks = inputLines.map(Rucksack.fromString(_))
+rucksacks.map(r => priority(r.commonItem.get)).sum
+
+def badge(group: Seq[Rucksack]): Option[Item] =
+  group.map(_.all.toSet).reduce(_ intersect _).headOption
+
+def badges(rs: Seq[Rucksack]): Seq[Option[Item]] =
+  rs.grouped(3).map(badge).toList
+
+// example
+badges(exampleRucksacks)
+
+// part two answer
+badges(rucksacks).map(o => priority(o.get)).sum
