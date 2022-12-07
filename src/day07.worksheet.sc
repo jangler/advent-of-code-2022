@@ -34,6 +34,7 @@ def parseLine(line: String): Option[Line] =
       .findPrefixMatchOf(line)
       .map(m => LsFile(size = m.group(1).toInt, name = m.group(2)))
 
+// Not sure how to make this less ugly!
 def parseInput(lines: Seq[String]): Try[FsNode] =
   val root = FsNode("/", 0, None, Map())
   var cwd = root
@@ -77,3 +78,20 @@ exampleSizes.filter(_ <= 100_000).sum
 val inputLines = io.Source.fromFile("input/day07.txt").getLines.toList
 val tree = parseInput(inputLines).get
 tree.directories.map(_.totalSize).filter(_ <= 100_000).sum
+
+val TotalSpace = 70_000_000
+val RequiredSpace = 30_000_000
+
+def smallestDirWithMinimumSize(root: FsNode, size: Int): Option[FsNode] =
+  root.directories.filter(_.totalSize >= size).sortBy(_.totalSize).headOption
+
+def requiredAdditionalSpace(root: FsNode): Int =
+  math.max(0, RequiredSpace - (TotalSpace - root.totalSize))
+
+// example
+val exampleSpace = requiredAdditionalSpace(exampleTree)
+smallestDirWithMinimumSize(exampleTree, exampleSpace)
+
+// part two answer
+val space = requiredAdditionalSpace(tree)
+smallestDirWithMinimumSize(tree, space).map(_.totalSize)
