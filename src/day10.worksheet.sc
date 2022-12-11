@@ -49,7 +49,7 @@ signalProfile(ex2Crt)
 
 // part one answer
 val lines = io.Source.fromFile("input/day10.txt").getLines.toList
-(simulate(lines)).sum
+signalProfile(simulate(lines)).sum
 
 // example 2
 ex2Crt.render
