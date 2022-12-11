@@ -1,58 +1,56 @@
-import scala.collection.mutable.ArrayBuffer
+import Instruction.*
+enum Instruction(val newStates: Int => List[Int]):
+  case Addx(val v: Int) extends Instruction(x => List(x, x + v))
+  case NoOp extends Instruction(x => List(x))
 
-class Crt():
-  var x = 1
-  val xStates = ArrayBuffer[Int](x)
-
-  def addx(v: Int): Unit =
-    xStates ++= Seq(x, x)
-    x += v
-
-  def noop(): Unit = xStates += x
-
-  def exec(s: String): Unit =
+object Instruction:
+  def parse(s: String): Instruction =
     s.split(" ").toList match
-      case "noop" :: Nil      => noop()
-      case "addx" :: v :: Nil => addx(v.toInt)
-      case ins => throw Exception(s"unrecognized instruction: $ins")
+      case "noop" :: Nil      => NoOp
+      case "addx" :: v :: Nil => Addx(v.toInt)
+      case _ => throw Exception(s"unrecognized instruction: $s")
 
-  override def toString: String =
-    val stateStr = xStates.mkString(", ")
-    s"Crt($stateStr, $x)"
+type Program = Seq[Instruction]
 
-  def signalStrength(i: Int): Int = xStates(i) * i
+object Program:
+  def read(lines: Seq[String]): Program =
+    lines.map(Instruction.parse)
+
+extension (p: Program)
+  def states: List[Int] =
+    p.foldLeft(List(1, 1))((xs, ins) => xs ++ ins.newStates(xs.last))
 
   def render: String =
     val rows =
-      for group <- xStates.tail.grouped(40)
+      for group <- states.tail.dropRight(1).grouped(40)
       yield group.zipWithIndex
         .map((x, i) => if math.abs(x - i) <= 1 then '#' else '.')
         .mkString
     "\n" + rows.mkString("\n")
 
-def simulate(instructions: Seq[String]): Crt =
-  val crt = Crt()
-  instructions.foreach(crt.exec)
-  crt
+def signalProfile(xs: Seq[Int]): Seq[Int] =
+  (20 to 220 by 40).map(i => i * xs(i))
 
-def signalProfile(crt: Crt): Seq[Int] =
-  (20 to 220 by 40).map(crt.signalStrength)
+def readLines(path: String) =
+  io.Source.fromFile(path).getLines.toList
 
 // example 1
-val ex1Lines = io.Source.fromFile("examples/day10small.txt").getLines.toList
-simulate(ex1Lines)
+val ex1Lines = readLines("examples/day10small.txt")
+val ex1Prog = Program.read(ex1Lines)
+ex1Prog.states
 
 // example 2
-val ex2Lines = io.Source.fromFile("examples/day10large.txt").getLines.toList
-val ex2Crt = simulate(ex2Lines)
-signalProfile(ex2Crt)
+val ex2Lines = readLines("examples/day10large.txt")
+val ex2Prog = Program.read(ex2Lines)
+signalProfile(ex2Prog.states)
 
 // part one answer
-val lines = io.Source.fromFile("input/day10.txt").getLines.toList
-signalProfile(simulate(lines)).sum
+val lines = readLines("input/day10.txt")
+val prog = Program.read(lines)
+signalProfile(prog.states).sum
 
 // example 2
-ex2Crt.render
+ex2Prog.render
 
 // part two answer
-simulate(lines).render
+prog.render
