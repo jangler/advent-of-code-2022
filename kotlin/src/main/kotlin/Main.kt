@@ -1,5 +1,5 @@
 fun main() {
     val day = Day01
-    val solution = day.partOneSolution(day.inputPath)
-    println("part one: $solution")
+    println("part one: ${day.partOneSolution(day.inputPath)}")
+    println("part two: ${day.partTwoSolution(day.inputPath)}")
 }
