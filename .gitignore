@@ -1,2 +1,5 @@
 .metals/
 .vscode/
+kotlin/.*
+kotlin/build
+kotlin/gradle*
