@@ -12,7 +12,7 @@ object Day01 {
         parseElves(File(path).readLines())
 
     private fun parseElves(lines: List<String>): List<Int> =
-        groupLines(lines).map { line -> line.sumOf { it.toInt() } }
+        groupLines(lines).map { group -> group.sumOf { it.toInt() } }
 
     private fun groupLines(lines: List<String>): List<List<String>> =
         if (lines.isEmpty()) listOf()
