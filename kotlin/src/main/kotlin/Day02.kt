@@ -1,8 +1,7 @@
 import java.io.File
 
 object Day02 {
-    const val examplePath = "../examples/day02.txt"
-    const val inputPath = "../input/day02.txt"
+    const val filename = "day02.txt"
 
     fun partOneSolution(path: String) =
         File(path).readLines().sumOf { line ->

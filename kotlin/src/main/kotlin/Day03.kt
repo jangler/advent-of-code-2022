@@ -1,8 +1,7 @@
 import java.io.File
 
 object Day03 {
-    const val examplePath = "../examples/day03.txt"
-    const val inputPath = "../input/day03.txt"
+    const val filename = "day03.txt"
 
     fun partOneSolution(path: String) =
         File(path)

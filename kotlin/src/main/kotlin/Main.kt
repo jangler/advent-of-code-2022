@@ -1,5 +1,9 @@
+const val exampleDir = "../examples/"
+const val inputDir = "../input/"
+
 fun main() {
     val day = Day03
-    println("part one: ${day.partOneSolution(day.inputPath)}")
-    println("part two: ${day.partTwoSolution(day.inputPath)}")
+    val path = inputDir + day.filename
+    println("part one: ${day.partOneSolution(path)}")
+    println("part two: ${day.partTwoSolution(path)}")
 }

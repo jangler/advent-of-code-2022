@@ -1,8 +1,7 @@
 import java.io.File
 
 object Day01 {
-    const val examplePath = "../examples/day01.txt"
-    const val inputPath = "../input/day01.txt"
+    const val filename = "day01.txt"
 
     fun partOneSolution(path: String): Int = loadElves(path).max()
 
