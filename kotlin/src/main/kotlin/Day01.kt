@@ -22,5 +22,6 @@ object Day01 {
             listOf(group) + groupLines(rest)
         }
 
-    private fun List<Int>.top(n: Int): List<Int> = this.sortedDescending().take(n)
+    private fun <T : Comparable<T>> List<T>.top(n: Int): List<T> =
+        this.sortedDescending().take(n)
 }
