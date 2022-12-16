@@ -11,4 +11,9 @@ internal class ExampleTest {
         assertEquals(15, Day02.partOneSolution(Day02.examplePath))
         assertEquals(12, Day02.partTwoSolution(Day02.examplePath))
     }
+
+    @Test fun day03() {
+        assertEquals(157, Day03.partOneSolution(Day03.examplePath))
+        assertEquals(70, Day03.partTwoSolution(Day03.examplePath))
+    }
 }
