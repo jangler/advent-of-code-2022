@@ -19,4 +19,10 @@ internal class ExampleTest {
         assertEquals(157, Day03.partOneSolution(path))
         assertEquals(70, Day03.partTwoSolution(path))
     }
+
+    @Test fun day04() {
+        val path = exampleDir + Day04.filename
+        assertEquals(2, Day04.partOneSolution(path))
+        assertEquals(4, Day04.partTwoSolution(path))
+    }
 }
