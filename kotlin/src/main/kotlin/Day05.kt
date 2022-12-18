@@ -6,15 +6,13 @@ typealias Stack = MutableList<Char>
 object Day05 {
     const val filename = "day05.txt"
 
-    fun partOneSolution(path: String): String {
-        val (stacks, moves) = parseInputFrom(path)
-        for (move in moves) move.apply9000(stacks)
-        return stacks.topCrates().joinToString("")
-    }
+    fun partOneSolution(path: String) = solveWithCrane(path, Move::apply9000)
 
-    fun partTwoSolution(path: String): String {
+    fun partTwoSolution(path: String) = solveWithCrane(path, Move::apply9001)
+
+    private fun solveWithCrane(path: String, crane: (Move, Array<Stack>) -> Unit): String {
         val (stacks, moves) = parseInputFrom(path)
-        for (move in moves) move.apply9001(stacks)
+        for (move in moves) crane(move, stacks)
         return stacks.topCrates().joinToString("")
     }
 
