@@ -3,3 +3,4 @@
 kotlin/.*
 kotlin/build
 kotlin/gradle*
+typescript/node_modules/
