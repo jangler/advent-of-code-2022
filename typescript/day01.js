@@ -121,9 +121,6 @@ function parseElves(lines) {
 function sum(xs) {
     return xs.reduce(function (pv, cv, _ci, _a) { return pv + cv; });
 }
-function max(xs) {
-    return xs.reduce(function (pv, cv, _ci, _a) { return cv > pv ? cv : pv; });
-}
 function top(n, xs) {
     return __spreadArray([], xs, true).sort(function (a, b) { return a - b; }).slice(-n);
 }
@@ -136,7 +133,7 @@ function partOneSolution(path) {
                 case 1:
                     lines = _b.sent();
                     elves = parseElves(lines);
-                    return [2 /*return*/, max(elves.map(sum))];
+                    return [2 /*return*/, Math.max.apply(Math, elves.map(sum))];
             }
         });
     });

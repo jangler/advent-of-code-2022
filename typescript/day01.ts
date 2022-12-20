@@ -26,10 +26,6 @@ function sum(xs: number[]): number {
     return xs.reduce((pv, cv, _ci, _a) => pv + cv);
 }
 
-function max(xs: number[]): number {
-    return xs.reduce((pv, cv, _ci, _a) => cv > pv ? cv : pv);
-}
-
 function top(n: number, xs: number[]): number[] {
     return [...xs].sort((a, b) => a - b).slice(-n);
 }
@@ -37,7 +33,7 @@ function top(n: number, xs: number[]): number[] {
 async function partOneSolution(path: string): Promise<number> {
     const lines = await slurpLines(path);
     const elves = parseElves(lines);
-    return max(elves.map(sum));
+    return Math.max(...elves.map(sum));
 }
 
 async function partTwoSolution(path: string): Promise<number> {
