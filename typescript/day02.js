@@ -83,7 +83,6 @@ function partTwoSolution(path) {
     return __awaiter(this, void 0, void 0, function* () {
         const rounds = (yield slurpLines(path)).map(parseRoundPartTwo);
         const scores = rounds.map((x) => totalScore(convertRound(x)));
-        console.log(scores);
         return R.sum(scores);
     });
 }
