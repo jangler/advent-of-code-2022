@@ -41,7 +41,7 @@
 (defn viewing-distance [tree line]
   (let [index (->> line
                    (map-indexed vector)
-                   (filter (fn [[i x]]
+                   (filter (fn [[_ x]]
                              (>= x tree)))
                    ffirst)]
     (if (nil? index)
