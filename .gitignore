@@ -8,3 +8,4 @@ kotlin/build
 kotlin/gradle*
 python/__pycache__/
 typescript/node_modules/
+rust/target
