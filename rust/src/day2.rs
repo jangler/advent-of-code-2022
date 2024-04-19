@@ -1,3 +1,10 @@
+enum Outcome {
+    Win,
+    Lose,
+    Draw,
+}
+
+#[derive(Copy, Clone)]
 enum Shape {
     Rock,
     Paper,
@@ -21,6 +28,20 @@ impl Shape {
             _ => false,
         };
     }
+
+    fn with_outcome(other: &Self, outcome: Outcome) -> Self {
+        return match outcome {
+            Outcome::Win => [Shape::Rock, Shape::Paper, Shape::Scissors]
+                .into_iter()
+                .find(|s| s.beats(other))
+                .expect("should be able to find a winning shape"),
+            Outcome::Lose => [Shape::Rock, Shape::Paper, Shape::Scissors]
+                .into_iter()
+                .find(|s| other.beats(s))
+                .expect("should be able to find a losing shape"),
+            Outcome::Draw => *other,
+        };
+    }
 }
 
 struct Round {
@@ -29,7 +50,7 @@ struct Round {
 }
 
 impl Round {
-    fn parse(line: &str) -> Self {
+    fn parse_part1(line: &str) -> Self {
         let chars: Vec<char> = line.chars().collect();
         return Round {
             p1: match chars[2] {
@@ -47,6 +68,25 @@ impl Round {
         };
     }
 
+    fn parse_part2(line: &str) -> Self {
+        let chars: Vec<char> = line.chars().collect();
+        let p2 = match chars[0] {
+            'A' => Shape::Rock,
+            'B' => Shape::Paper,
+            'C' => Shape::Scissors,
+            _ => panic!("could not parse round"),
+        };
+        return Round {
+            p1: match chars[2] {
+                'X' => Shape::with_outcome(&p2, Outcome::Lose),
+                'Y' => Shape::with_outcome(&p2, Outcome::Draw),
+                'Z' => Shape::with_outcome(&p2, Outcome::Win),
+                _ => panic!("could not parse round"),
+            },
+            p2: p2,
+        };
+    }
+
     fn score(self: &Self) -> i64 {
         let outcome_score = if self.p1.beats(&self.p2) {
             6
@@ -59,19 +99,27 @@ impl Round {
     }
 }
 
-fn parse(input: &str) -> Vec<Round> {
-    return input.lines().map(|s| Round::parse(s)).collect();
+fn parse_part1(input: &str) -> Vec<Round> {
+    return input.lines().map(|s| Round::parse_part1(s)).collect();
 }
 
 pub fn solve_part1(input: &str) -> i64 {
-    return parse(input).iter().map(|r| r.score()).sum();
+    return parse_part1(input).iter().map(|r| r.score()).sum();
+}
+
+fn parse_part2(input: &str) -> Vec<Round> {
+    return input.lines().map(|s| Round::parse_part2(s)).collect();
+}
+
+pub fn solve_part2(input: &str) -> i64 {
+    return parse_part2(input).iter().map(|r| r.score()).sum();
 }
 
 #[cfg(test)]
 mod tests {
     use std::fs;
 
-    use crate::day2::solve_part1;
+    use crate::day2::{solve_part1, solve_part2};
 
     fn example_input() -> String {
         return fs::read_to_string("../examples/day02.txt").expect("example should be present");
@@ -80,5 +128,10 @@ mod tests {
     #[test]
     fn test_part1() {
         assert_eq!(solve_part1(&example_input()), 15);
+    }
+
+    #[test]
+    fn test_part2() {
+        assert_eq!(solve_part2(&example_input()), 12);
     }
 }

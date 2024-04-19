@@ -26,6 +26,7 @@ fn main() {
         },
         2 => {
             println!("{}", day2::solve_part1(&input));
+            println!("{}", day2::solve_part2(&input));
         },
         _ => panic!("day not yet implemented"),
     }
