@@ -1,4 +1,4 @@
-pub fn parse_elves(input: &str) -> Vec<Vec<i64>> {
+fn parse_elves(input: &str) -> Vec<Vec<i64>> {
     let mut elves: Vec<Vec<i64>> = vec![];
     let mut cur_elf: Vec<i64> = vec![];
     for line in input.lines() {
