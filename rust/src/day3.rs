@@ -1,35 +1,37 @@
 fn common_item(xs: &[&str]) -> char {
-    return xs[0]
+    xs[0]
         .chars()
         .find(|c| xs[1..].iter().all(|s| s.contains(*c)))
-        .expect("should find common item");
+        .expect("should find common item")
 }
 
 fn common_rucksack_item(rucksack: &str) -> char {
     let midpoint = rucksack.len() / 2;
-    return common_item(&[&rucksack[..midpoint], &rucksack[midpoint..]]);
+    common_item(&[&rucksack[..midpoint], &rucksack[midpoint..]])
 }
 
 fn priority(item: char) -> i64 {
-    return if item >= 'a' && item <= 'z' {
+    if item >= 'a' && item <= 'z' {
         item as i64 - 'a' as i64 + 1
     } else if item >= 'A' && item <= 'z' {
         item as i64 - 'A' as i64 + 27
     } else {
         panic!("invalid item");
-    };
+    }
 }
 
 pub fn solve_part1(input: &str) -> i64 {
-    return input
+    input
         .lines()
         .map(|s| priority(common_rucksack_item(s)))
-        .sum();
+        .sum()
 }
 
 pub fn solve_part2(input: &str) -> i64 {
     let lines: Vec<&str> = input.lines().collect();
-    return (0..lines.len()/3).map(|i| priority(common_item(&lines[i*3..(i+1)*3]))).sum();
+    (0..lines.len() / 3)
+        .map(|i| priority(common_item(&lines[i * 3..(i + 1) * 3])))
+        .sum()
 }
 
 #[cfg(test)]
@@ -39,7 +41,7 @@ mod tests {
     use crate::day3::{solve_part1, solve_part2};
 
     fn example_input() -> String {
-        return fs::read_to_string("../examples/day03.txt").expect("example should be present");
+        fs::read_to_string("../examples/day03.txt").expect("example should be present")
     }
 
     #[test]

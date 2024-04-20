@@ -12,17 +12,17 @@ fn parse_elves(input: &str) -> Vec<Vec<i64>> {
     if !cur_elf.is_empty() {
         elves.push(cur_elf);
     }
-    return elves;
+    elves
 }
 
 pub fn solve_part1(input: &str) -> i64 {
-    return parse_elves(input).iter().map(|x| x.iter().sum()).max().unwrap();
+    parse_elves(input).iter().map(|x| x.iter().sum()).max().unwrap()
 }
 
 pub fn solve_part2(input: &str) -> i64 {
     let mut sums = parse_elves(input).iter().map(|x| x.iter().sum()).collect::<Vec<i64>>();
     sums.sort();
-    return sums.iter().rev().take(3).sum();
+    sums.iter().rev().take(3).sum()
 }
 
 #[cfg(test)]
@@ -32,7 +32,7 @@ mod tests {
     use crate::day1::{solve_part1, solve_part2};
 
     fn example_input() -> String {
-        return fs::read_to_string("../examples/day01.txt").expect("file should be present");
+        fs::read_to_string("../examples/day01.txt").expect("file should be present")
     }
 
     #[test]
