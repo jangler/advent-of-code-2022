@@ -11,23 +11,23 @@ fn main() {
     if args.len() < 2 {
         panic!("missing argument: day")
     }
-    let day: i64 = args[1]
+    let day: usize = args[1]
         .parse()
         .expect("day argument should be a valid integer");
 
     // read input
     let input =
         fs::read_to_string(format!("../input/day{:02}.txt", day)).expect("file should be present");
-    
-    match day {
-        1 => {
-            println!("{}", day1::solve_part1(&input));
-            println!("{}", day1::solve_part2(&input));
-        },
-        2 => {
-            println!("{}", day2::solve_part1(&input));
-            println!("{}", day2::solve_part2(&input));
-        },
-        _ => panic!("day not yet implemented"),
+
+    let solutions: Vec<(fn(&str) -> i64, fn(&str) -> i64)> = vec![
+        (day1::solve_part1, day1::solve_part2),
+        (day2::solve_part1, day2::solve_part2),
+    ];
+
+    if let Some((part1, part2)) = solutions.get(day - 1) {
+        println!("{}", part1(&input));
+        println!("{}", part2(&input));
+    } else {
+        println!("day not yet implemented");
     }
 }
