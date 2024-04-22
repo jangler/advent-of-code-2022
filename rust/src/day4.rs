@@ -39,12 +39,12 @@ fn parse(input: &str) -> Vec<Pair> {
         .collect()
 }
 
-pub fn solve_part1(input: &str) -> i64 {
-    parse(input).iter().filter(|p| p.has_full_overlap()).count() as i64
+pub fn solve_part1(input: &str) -> String {
+    parse(input).iter().filter(|p| p.has_full_overlap()).count().to_string()
 }
 
-pub fn solve_part2(input: &str) -> i64 {
-    parse(input).iter().filter(|p| p.has_overlap()).count() as i64
+pub fn solve_part2(input: &str) -> String {
+    parse(input).iter().filter(|p| p.has_overlap()).count().to_string()
 }
 
 #[cfg(test)]
@@ -59,11 +59,11 @@ mod tests {
 
     #[test]
     fn test_part1() {
-        assert_eq!(solve_part1(&example_input()), 2);
+        assert_eq!(solve_part1(&example_input()), "2");
     }
 
     #[test]
     fn test_part2() {
-        assert_eq!(solve_part2(&example_input()), 4);
+        assert_eq!(solve_part2(&example_input()), "4");
     }
 }

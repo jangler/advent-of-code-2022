@@ -20,18 +20,20 @@ fn priority(item: char) -> i64 {
     }
 }
 
-pub fn solve_part1(input: &str) -> i64 {
+pub fn solve_part1(input: &str) -> String {
     input
         .lines()
         .map(|s| priority(common_rucksack_item(s)))
-        .sum()
+        .sum::<i64>()
+        .to_string()
 }
 
-pub fn solve_part2(input: &str) -> i64 {
+pub fn solve_part2(input: &str) -> String {
     let lines: Vec<&str> = input.lines().collect();
     (0..lines.len() / 3)
         .map(|i| priority(common_item(&lines[i * 3..(i + 1) * 3])))
-        .sum()
+        .sum::<i64>()
+        .to_string()
 }
 
 #[cfg(test)]
@@ -46,11 +48,11 @@ mod tests {
 
     #[test]
     fn test_part1() {
-        assert_eq!(solve_part1(&example_input()), 157);
+        assert_eq!(solve_part1(&example_input()), "157");
     }
 
     #[test]
     fn test_part2() {
-        assert_eq!(solve_part2(&example_input()), 70);
+        assert_eq!(solve_part2(&example_input()), "70");
     }
 }

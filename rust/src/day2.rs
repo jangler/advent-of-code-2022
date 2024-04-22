@@ -103,16 +103,16 @@ fn parse_part1(input: &str) -> Vec<Round> {
     input.lines().map(|s| Round::parse_part1(s)).collect()
 }
 
-pub fn solve_part1(input: &str) -> i64 {
-    parse_part1(input).iter().map(|r| r.score()).sum()
+pub fn solve_part1(input: &str) -> String {
+    parse_part1(input).iter().map(|r| r.score()).sum::<i64>().to_string()
 }
 
 fn parse_part2(input: &str) -> Vec<Round> {
     input.lines().map(|s| Round::parse_part2(s)).collect()
 }
 
-pub fn solve_part2(input: &str) -> i64 {
-    parse_part2(input).iter().map(|r| r.score()).sum()
+pub fn solve_part2(input: &str) -> String {
+    parse_part2(input).iter().map(|r| r.score()).sum::<i64>().to_string()
 }
 
 #[cfg(test)]
@@ -127,11 +127,11 @@ mod tests {
 
     #[test]
     fn test_part1() {
-        assert_eq!(solve_part1(&example_input()), 15);
+        assert_eq!(solve_part1(&example_input()), "15");
     }
 
     #[test]
     fn test_part2() {
-        assert_eq!(solve_part2(&example_input()), 12);
+        assert_eq!(solve_part2(&example_input()), "12");
     }
 }
