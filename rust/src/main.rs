@@ -7,6 +7,7 @@ pub mod day2;
 pub mod day3;
 pub mod day4;
 pub mod day5;
+pub mod day6;
 
 fn main() {
     // parse CLI args
@@ -28,6 +29,7 @@ fn main() {
         (day3::solve_part1, day3::solve_part2),
         (day4::solve_part1, day4::solve_part2),
         (day5::solve_part1, day5::solve_part2),
+        (day6::solve_part1, day6::solve_part2),
     ];
 
     if let Some((part1, part2)) = solutions.get(day - 1) {
